@@ -16,10 +16,10 @@ function App() {
 
   // Lista de comentários principais por imagem
   const comentarios = [
-    'Primeira imagem incrível!',
-    'Dr. Eggman aprovou esta imagem.',
+    'primeiro designer Ótimo',
+    'Dr. Eggman aprovou este designer.',
     'Design insano, gostei muito!',
-    'Última foto da galeria.',
+    'Muito bom man',
   ]
 
   // Estado para armazenar as respostas de cada foto { indexFoto: [respostas] }
