@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import './App.css'
 
@@ -6,6 +5,26 @@ function App() {
   const [count, setCount] = useState(0)
   const [hasLiked, setHasLiked] = useState(false)
   const [fotoAtual, setFotoAtual] = useState(0)
+
+  // Nomes de perfil para cada foto
+  const nomesPerfil = [
+    'Antedeguemon',
+    'Eggman',
+    'Knuckles',
+    'Luiz Miguel',
+  ]
+
+  // Lista de comentários principais por imagem
+  const comentarios = [
+    'Primeira imagem incrível!',
+    'Dr. Eggman aprovou esta imagem.',
+    'Design insano, gostei muito!',
+    'Última foto da galeria.',
+  ]
+
+  // Estado para armazenar as respostas de cada foto { indexFoto: [respostas] }
+  const [respostas, setRespostas] = useState({})
+  const [textoResposta, setTextoResposta] = useState('')
 
   const fotos = [
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSm2631a43eBEvYK-5G0b3zghtd3Lm4xvLMHVImrkXvQDEGiDGteafGuyDf&s=10',
@@ -25,6 +44,19 @@ function App() {
 
   const fotoAnterior = () => {
     setFotoAtual((atual) => (atual - 1 + fotos.length) % fotos.length)
+  }
+
+  // Função para adicionar uma nova resposta à foto atual
+  const handleEnviarResposta = (e) => {
+    e.preventDefault()
+    if (!textoResposta.trim()) return
+
+    setRespostas((prev) => ({
+      ...prev,
+      [fotoAtual]: [...(prev[fotoAtual] || []), textoResposta],
+    }))
+
+    setTextoResposta('')
   }
 
   return (
@@ -53,9 +85,13 @@ function App() {
         </button>
       </div>
 
-
       <div className="galeria">
-        <h3>Comentários</h3>
+        <h3>Galeria de Fotos</h3>
+
+        {/* Nome do perfil acima da foto atual */}
+        <div className="perfil-foto-header">
+          <span className="nome-perfil-foto">{nomesPerfil[fotoAtual]}</span>
+        </div>
 
         <div className="galeria-container">
           <button
@@ -69,7 +105,7 @@ function App() {
           <img
             className="imagem-galeria"
             src={fotos[fotoAtual]}
-            alt={`Foto ${fotoAtual + 1}`}
+            alt={`Foto de ${nomesPerfil[fotoAtual]}`}
           />
 
           <button
@@ -81,6 +117,35 @@ function App() {
           </button>
         </div>
 
+        {/* Seção de comentários e respostas */}
+        <div className="comentario-box">
+          <p className="comentario-texto">
+            <strong>Comentário:</strong> {comentarios[fotoAtual]}
+          </p>
+
+          {/* Lista de respostas já enviadas para esta imagem */}
+          {respostas[fotoAtual] && respostas[fotoAtual].length > 0 && (
+            <div className="lista-respostas">
+              {respostas[fotoAtual].map((resposta, index) => (
+                <div key={index} className="resposta-item">
+                  💬 {resposta}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Formulário para responder */}
+          <form className="form-resposta" onSubmit={handleEnviarResposta}>
+            <input
+              type="text"
+              placeholder="Responder comentário..."
+              value={textoResposta}
+              onChange={(e) => setTextoResposta(e.target.value)}
+            />
+            <button type="submit">Responder</button>
+          </form>
+        </div>
+
         <div className="indicadores">
           {fotos.map((foto, index) => (
             <button
@@ -89,7 +154,7 @@ function App() {
                 fotoAtual === index ? 'ativo' : ''
               }`}
               onClick={() => setFotoAtual(index)}
-              aria-label={`Ver foto ${index + 1}`}
+              aria-label={`Ver foto de ${nomesPerfil[index]}`}
             />
           ))}
         </div>

@@ -171,3 +171,51 @@ body {
   font-size: 0.8rem;
   margin-top: 10px;
 }
+
+.lista-respostas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.resposta-item {
+  font-size: 0.9rem;
+  background-color: #030101;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-align: left;
+}
+
+.form-resposta {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.form-resposta input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #751a1a;
+  border-radius: 4px;
+}
+
+.form-resposta button {
+  padding: 8px 12px;
+  background-color: #b80707;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.perfil-foto-header {
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.nome-perfil-foto {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #c5bbbb;
+}
